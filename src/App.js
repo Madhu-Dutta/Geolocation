@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {geolocated} from 'react-geolocated';
+import Geoloc from './Geoloc';
 
-function App() {
+class App extends React.Component{
+  render(props){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <div>
+        <h1>Hello world!</h1>
+        <p>{this.props.coords && this.props.coords.latitude}</p>
+        <Geoloc {...this.props} />
     </div>
   );
 }
+}
+const MainWithGeoloc = geolocated({
+  positionOptions: {
+    enableHighAccuracy: true,
+  },
+  userDecisionTimeout: 5000,
+})(App);
 
-export default App;
+export default MainWithGeoloc;
